@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, onPress } from "react-native";
 import ProductCard from "../components/ProductCard.js";
-import { useCart } from "../components/CartContext.js";
-import BlogScreen from "./BlogScreen.js";
 
 import { Picker } from "@react-native-picker/picker";
 

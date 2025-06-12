@@ -7,7 +7,7 @@ import { useCart } from "../components/CartContext.js";
 
 const ProductCard = ({ title, author, price, description, image, onPress }) => {
     const navigation = useNavigation();
-    const { addToCart } = useCart();
+    const { addToCart } = useCart(); // functie ophalen
 
     return (
         <View style={styles.card}>
@@ -20,10 +20,10 @@ const ProductCard = ({ title, author, price, description, image, onPress }) => {
                 <TouchableOpacity style={styles.button} onPress={onPress}>
                     <Text style={styles.buttonText}>View Book</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
+                <TouchableOpacity 
                     style={styles.button}
                     onPress={() =>
-                        addToCart({ title, author, price, description, image })
+                        addToCart({ title, author, price, description, image }) // Toevoegen aan winkelwagen
                     }
                 >
                     <Text style={styles.buttonText}>Add to Cart</Text>
