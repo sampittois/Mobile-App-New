@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, onPress } from "react-native";
 import ProductCard from "../components/ProductCard.js";
+import { useCart } from "../components/CartContext.js";
 import BlogScreen from "./BlogScreen.js";
 
 import { Picker } from "@react-native-picker/picker";
@@ -60,18 +61,21 @@ const HomeScreen = ({ navigation }) => {
         if (sortOption === "name-desc") return b.title.localeCompare(a.title);
     })
 
+    
+
+
     return (
         <View style={styles.container}>
             <View style={styles.row}>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Blogs")}>
-                <Text style={styles.buttonText}>Blogs</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("About")}>
-                <Text style={styles.buttonText}>About Us</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Cart")}>
-                <Text style={styles.buttonText}>Cart</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Blogs")}>
+                    <Text style={styles.buttonText}>Blogs</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("About")}>
+                    <Text style={styles.buttonText}>About Us</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Cart")}>
+                    <Text style={styles.buttonText}>Cart</Text>
+                </TouchableOpacity>
             </View>
             {/* <Text style={styles.heading}>Books</Text> */}
             <View>
@@ -119,12 +123,6 @@ const HomeScreen = ({ navigation }) => {
                             image={product.image}
                             onPress={() => navigation.navigate("Details", product)}
                         />
-
-                        // <ProductCard
-                        //     key={product.id}
-                        //     {...product}
-                        //     onPress={() => navigation.navigate("Details", product)}
-                        // />
                     ))}
                 </View>
             </ScrollView>

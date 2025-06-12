@@ -1,9 +1,13 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useCart } from "../components/CartContext.js";
+
+
 
 const ProductCard = ({ title, author, price, description, image, onPress }) => {
     const navigation = useNavigation();
+    const { addToCart } = useCart();
 
     return (
         <View style={styles.card}>
@@ -16,9 +20,16 @@ const ProductCard = ({ title, author, price, description, image, onPress }) => {
                 <TouchableOpacity style={styles.button} onPress={onPress}>
                     <Text style={styles.buttonText}>View Book</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={onPress}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() =>
+                        addToCart({ title, author, price, description, image })
+                    }
+                >
                     <Text style={styles.buttonText}>Add to Cart</Text>
                 </TouchableOpacity>
+
+
             </View>
         </View>
     );

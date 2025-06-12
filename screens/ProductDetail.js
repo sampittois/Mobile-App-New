@@ -43,11 +43,14 @@ const DetailScreen = ({ route }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#f5e6ca",
+        backgroundColor: "#a3b18a",
     },
     scrollContent: {
         alignItems: "center",
-        padding: 16,
+        padding: 10,
+        margin: 20,
+        backgroundColor: "#f5e6ca",
+        borderRadius: 10,
     },
     title: {
         fontSize: 24,
