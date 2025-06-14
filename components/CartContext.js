@@ -1,14 +1,22 @@
 import React, { createContext, useContext, useState } from "react";
 
-const CartContext = createContext(); // ontext die de staat van de winkelwagen bijhoudt
+const CartContext = createContext(); // context die de staat van de winkelwagen bijhoudt
 
 export const CartProvider = ({ children }) => { // wrapper component (rond de app of deel van)
     const [cartItems, setCartItems] = useState([]); // Houdt de lijst van items in de winkelwagen bij
 
-    const addToCart = (item) => { // Voeg een nieuw item toe aan de winkelwagen
-        console.log("addToCart called:", item);
-        setCartItems((prevItems) => [...prevItems, item]); // ...prevItems: bestaande items behouden
+
+    const addToCart = (item) => {
+        setCartItems((prevItems) => {
+            // Check if the item already exists in the cart by title
+            const exists = prevItems.some((i) => i.title === item.title);
+            if (exists) {
+                return prevItems; // Don't add duplicate
+            }
+            return [...prevItems, item];
+        });
     };
+
 
     const removeFromCart = (indexToRemove) => { // Verwijdert een item uit de winkelwagen op basis van zijn index
         setCartItems((prevItems) =>

@@ -23,7 +23,7 @@ const ProductCard = ({ title, author, price, description, image, onPress }) => {
                 <TouchableOpacity 
                     style={styles.button}
                     onPress={() =>
-                        addToCart({ title, author, price, description, image }) // Toevoegen aan winkelwagen
+                        addToCart({ title, author, price, image }) // Toevoegen aan winkelwagen
                     }
                 >
                     <Text style={styles.buttonText}>Add to Cart</Text>

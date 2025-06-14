@@ -6,6 +6,12 @@ import { useCart } from "../components/CartContext.js";
 const CartScreen = ({ navigation }) => { // ontvangt navigation prop om tussen screen te navigeren.
     const { cartItems, removeFromCart } = useCart(); // Haalt de inhoud van de winkelwagen en de functie om een item te verwijderen
 
+    const total = cartItems.reduce(
+        (sum, item) => sum + item.price * (item.quantity || 1),
+        0
+    );
+
+
     return (
         <View style={styles.container}>
             <Text style={styles.heading}>Cart</Text>
@@ -25,6 +31,17 @@ const CartScreen = ({ navigation }) => { // ontvangt navigation prop om tussen s
                                 <Text style={styles.title}>{item.title}</Text>
                                 <Text style={styles.author}>by {item.author}</Text>
                                 <Text style={styles.price}>€{item.price.toFixed(2)}</Text>
+                                <View style={styles.amountRow}>
+                                    {item.quantity > 1 && (
+                                        <>
+                                            <Text style={styles.amount}>{item.quantity}x</Text>
+                                            <Text style={styles.amount}>
+                                                Total: €{(item.price * item.quantity).toFixed(2)}
+                                            </Text>
+                                        </>
+                                    )}
+                                </View>
+
 
                                 <TouchableOpacity // Button: verwijderen uit de index
                                     style={styles.removeButton}
@@ -37,6 +54,9 @@ const CartScreen = ({ navigation }) => { // ontvangt navigation prop om tussen s
                     ))}
                 </ScrollView>
             )}
+            <View>
+                <Text style={styles.totalText}>Cart Total: €{total.toFixed(2)}</Text>
+            </View>
 
             <TouchableOpacity
                 style={styles.button}
@@ -75,7 +95,7 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         justifyContent: "center",
         gap: 10,
-         width: 390,
+        width: 390,
         padding: 16,
         backgroundColor: "#f5e6ca",
         borderRadius: 8,
@@ -83,6 +103,7 @@ const styles = StyleSheet.create({
     },
     body: {
         padding: 10,
+        color: "#795a4e",
     },
     title: {
         fontSize: 20,
@@ -104,6 +125,19 @@ const styles = StyleSheet.create({
         borderRadius: 6,
     },
     buttonText: {
+        color: "#795a4e",
+        fontWeight: "bold",
+    },
+    amount: {
+        fontSize: 16,
+        color: "#795a4e",
+    },
+    amountRow: {
+        flexDirection: "row",
+        gap: 10,
+    },
+    totalText: {
+        fontSize: 16,
         color: "#795a4e",
         fontWeight: "bold",
     },

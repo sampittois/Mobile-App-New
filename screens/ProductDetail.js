@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
+import { useCart } from "../components/CartContext.js";
 
-const DetailScreen = ({ route }) => {
-    const { title, author, price, image, description } = route.params;
+const DetailScreen = ({ route, navigation }) => {
+    const { title, author, price, image, description, id } = route.params;
     const [quantity, setQuantity] = useState(1);
+    const { addToCart } = useCart();
 
     const increaseQuantity = () => setQuantity(quantity + 1);
     const decreaseQuantity = () => {
@@ -12,8 +14,31 @@ const DetailScreen = ({ route }) => {
         }
     };
 
+    const handleAddToCart = () => {
+        addToCart({
+            id,
+            title,
+            author,
+            price,
+            image,
+            description,
+            quantity,
+        });
+    };
+
     return (
         <View style={styles.container}>
+            <View style={styles.row}>
+                <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Blogs")}>
+                    <Text style={styles.navButtonText}>Blogs</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("About")}>
+                    <Text style={styles.navButtonText}>About Us</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Cart")}>
+                    <Text style={styles.navButtonText}>Cart</Text>
+                </TouchableOpacity>
+            </View>
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 <Image source={image} style={styles.img} />
                 <Text style={styles.title}>{title}</Text>
@@ -33,6 +58,17 @@ const DetailScreen = ({ route }) => {
                 </View>
 
                 <Text style={styles.totalPrice}>Total: €{price * quantity}</Text>
+                <TouchableOpacity style={styles.button} onPress={handleAddToCart}>
+                    <Text style={styles.buttonText}>Add to Cart</Text>
+                </TouchableOpacity>
+                {/* <TouchableOpacity
+                    style={styles.button}
+                    onPress={() =>
+                        addToCart({ title, author, price, image }) // Toevoegen aan winkelwagen
+                    }
+                >
+                    <Text style={styles.buttonText}>Add to Cart</Text>
+                </TouchableOpacity> */}
 
                 <Text style={styles.description}>{description}</Text>
             </ScrollView>
@@ -73,7 +109,7 @@ const styles = StyleSheet.create({
     description: {
         paddingTop: 20,
         fontSize: 18,
-        color: "#795a4e", 
+        color: "#795a4e",
         paddingHorizontal: 16,
     },
     img: {
@@ -89,18 +125,35 @@ const styles = StyleSheet.create({
         marginVertical: 12,
         gap: 12,
     },
-    button: {
-        height: 50,
-        width: 50,
-        backgroundColor: "#a3b18a",
-        padding: 10,
+    navButton: {
+        marginTop: 12,
+        backgroundColor: "#f5e6ca",
+        paddingVertical: 10,
+        paddingHorizontal: 10,
         borderRadius: 6,
-        marginHorizontal: 10,
+        alignItems: "center",
+    },
+    navButtonText: {
+        color: "#795a4e",
+        fontWeight: "bold",
+    },
+    row: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        gap: 10,
+    },
+    button: {
+        marginTop: 12,
+        backgroundColor: "#a3b18a",
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        borderRadius: 6,
+        alignItems: "center",
     },
     buttonText: {
-        fontSize: 25,
-        color: "#795a4e",
-        textAlign: "center",
+        color: "#f5e6ca",
+        fontWeight: "bold",
     },
     quantityText: {
         fontSize: 18,
