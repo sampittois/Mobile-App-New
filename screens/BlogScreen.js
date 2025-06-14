@@ -123,8 +123,6 @@ const styles = StyleSheet.create({
         margin: 10,
         width: "330",
         color: "#795a4e",
-        borderWidth: 1,
-        borderColor: "#ccc",
     },
     filtersRow: {
         flexDirection: "row",
