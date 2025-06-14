@@ -11,6 +11,7 @@ export const CartProvider = ({ children }) => { // wrapper component (rond de ap
             // Check if the item already exists in the cart by title
             const exists = prevItems.some((i) => i.title === item.title);
             if (exists) {
+                alert("This book is already in your cart.");
                 return prevItems; // Don't add duplicate
             }
             return [...prevItems, item];
